@@ -4,9 +4,11 @@ import com.pengrad.telegrambot.TelegramBot;
 import com.pengrad.telegrambot.UpdatesListener;
 import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.request.SendMessage;
+import com.pengrad.telegrambot.response.SendResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.converter.json.GsonBuilderUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
@@ -29,20 +31,26 @@ public class TelegramBotUpdatesListener implements UpdatesListener {
     public void init() {
         telegramBot.setUpdatesListener(this);
     }
+    long chatID = 0;
 
     @Override
     public int process(List<Update> updates) {
+
         updates.forEach(update -> {
             logger.info("Processing update: {}", update);
 
-           if (update.message().text().equals("/start")){
-            telegramBot.execute(new SendMessage(update.message().chat().id(), "Hello, my friend "));}
-
+                if (update.message().text().equals("/start")) {
+                chatID= update.message().chat().id();}
+            SendMessage message = new SendMessage(chatID, "Hello, how are you?");
+            SendResponse response = telegramBot.execute(message);
+            response.isOk();
 
 
         });
         return UpdatesListener.CONFIRMED_UPDATES_ALL;
     }
+
+
 
 
 
