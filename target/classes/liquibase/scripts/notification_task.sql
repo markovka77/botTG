@@ -2,8 +2,7 @@
 
 -- changeset markovka;1
 CREATE TABLE notification_task (
-    chatId SERIAL,
-    message TEXT,
-    date DATE,
-    key key
-)
+   id SERIAL PRIMARY KEY NOT NULL,
+    dateTime LOCAl DATE TIME NOT NULL
+    items varchar NOT NULL
+);
