@@ -1,10 +1,10 @@
-package pro.sky.telegrambot;
+package pro.sky.telegrambot.Model;
 
 
-import com.pengrad.telegrambot.TelegramBot;
-
-import javax.persistence.*;
-
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -18,20 +18,17 @@ public class Notification_task {
 
     Long chatId;
     LocalDateTime dateTime;
-    String content;
+    String item;
 
-//    @ManyToOne(cascade = CascadeType.ALL)
-//    @JoinColumn(name="taskId")
-//    private TelegramBot telegramBot;
 
-    public Notification_task(Long id, Long chatId,LocalDateTime dateTime, String content) {
-        this.id = id;
+    public Notification_task(Long chatId, LocalDateTime dateTime, String item) {
+
         this.chatId = chatId;
-        this.dateTime=dateTime;
-        this.content = content;
+        this.dateTime = dateTime;
+        this.item = item;
     }
 
-    public Notification_task(){
+    public Notification_task() {
 
     }
 
@@ -59,12 +56,12 @@ public class Notification_task {
         this.chatId = chatId;
     }
 
-    public String getContent() {
-        return content;
+    public String getItem() {
+        return item;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setItem(String item) {
+        this.item = item;
     }
 
     @Override
@@ -72,12 +69,12 @@ public class Notification_task {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Notification_task that = (Notification_task) o;
-        return Objects.equals(id, that.id) && Objects.equals(chatId, that.chatId) && Objects.equals(dateTime, that.dateTime) && Objects.equals(content, that.content);
+        return Objects.equals(id, that.id) && Objects.equals(chatId, that.chatId) && Objects.equals(dateTime, that.dateTime) && Objects.equals(item, that.item);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, chatId, dateTime, content);
+        return Objects.hash(id, chatId, dateTime, item);
     }
 
     @Override
@@ -86,7 +83,7 @@ public class Notification_task {
                 "id=" + id +
                 ", chatId=" + chatId +
                 ", dateTime=" + dateTime +
-                ", content='" + content + '\'' +
+                ", item='" + item + '\'' +
                 '}';
     }
 }
